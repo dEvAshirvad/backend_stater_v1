@@ -1,0 +1,6 @@
+dist
+mongodb_data_container
+node_modules
+redis_data
+logs
+.env
