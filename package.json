@@ -1,53 +1,74 @@
 {
-    "name": "backend_stater_v1",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "dev": "nodemon src/index.ts",
-        "prepare": "husky",
-        "prettier": "prettier --write ."
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@commitlint/cli": "^19.6.1",
-        "@commitlint/config-conventional": "^19.6.0",
-        "@types/cookie-parser": "^1.4.8",
-        "@types/cors": "^2.8.17",
-        "@types/express": "^5.0.0",
-        "@types/jsonwebtoken": "^9.0.7",
-        "@types/node": "^22.10.7",
-        "cross-env": "^7.0.3",
-        "husky": "^9.1.7",
-        "nodemon": "^3.1.9",
-        "prettier": "^3.4.2",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.7.3"
-    },
-    "dependencies": {
-        "cookie-parser": "^1.4.7",
-        "cors": "^2.8.5",
-        "date-fns": "^4.1.0",
-        "dotenv": "^16.4.7",
-        "express": "^4.21.2",
-        "ioredis": "^5.4.2",
-        "jsonwebtoken": "^9.0.2",
-        "log4js": "^6.9.1",
-        "mongoose": "^8.9.5",
-        "zod": "^3.24.1"
-    },
-    "engines": {
-        "node": ">=20.18.1",
-        "yarn": "please-use-pnpm",
-        "npm": "please-use-pnpm",
-        "pnpm": ">=9.0.0"
-    },
-    "husky": {
-        "hooks": {
-            "commit-msg": "npx --no -- commitlint --edit '$1'",
-            "pre-commit": "npm run prettier"
-        }
-    }
+  "name": "backend_stater_v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "prepare": "husky",
+    "clean:install": "rm -rf ./node_modules && rm -r package-lock.json && npm i",
+    "clean:find-unused": "knip --unused",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "knip": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "project": [
+      "**/*.ts"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.18.0",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.7",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.18.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "jsonwebtoken": "^9.0.2",
+    "log4js": "^6.9.1",
+    "mongoose": "^8.9.5",
+    "zod": "^3.24.1"
+  },
+  "engines": {
+    "node": ">=20.18.1",
+    "yarn": "please-use-pnpm",
+    "npm": "please-use-pnpm",
+    "pnpm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "pnpm format",
+      "pnpm lint",
+      "git add"
+    ]
+  }
 }
