@@ -2,6 +2,11 @@ import cookieParser from 'cookie-parser';
 import express, { Express } from 'express';
 import cors from 'cors';
 import { allowedOrigins } from '@/constants/server.constants';
+import Respond from '@/lib/Respond';
+import { errorHandler } from '@/middlewares/errorHandler';
+import UserDeserializer from '@/middlewares/UserDeserializer';
+import router from '@/modules';
+import helmet from 'helmet';
 
 export default function serverConfig(app: Express) {
   app.use(cookieParser());
@@ -19,4 +24,13 @@ export default function serverConfig(app: Express) {
       },
     })
   );
+  app.use(helmet());
+  app.use(UserDeserializer);
+
+  app.get('/', (_, res) => {
+    Respond(res, { message: 'API services are nominal!!' }, 200);
+  });
+  app.use('/api/v1', router);
+
+  app.use(errorHandler);
 }

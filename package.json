@@ -13,11 +13,12 @@
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prestage": "pnpm format && pnpm lint && git add ."
   },
   "knip": {
     "entry": [
-      "src/index.ts"
+      "src/server.ts"
     ],
     "project": [
       "**/*.ts"
@@ -52,6 +53,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "helmet": "^8.0.0",
     "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
     "log4js": "^6.9.1",
@@ -63,12 +65,5 @@
     "yarn": "please-use-pnpm",
     "npm": "please-use-pnpm",
     "pnpm": ">=9.0.0"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "pnpm format",
-      "pnpm lint",
-      "git add"
-    ]
   }
 }

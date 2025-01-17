@@ -10,6 +10,12 @@ export interface JWTPayload {
   collection: string;
 }
 
+export interface QueryOptions {
+  page: number;
+  limit: number;
+  sort?: string;
+}
+
 export interface PaginatedResult<T> {
   docs: T[];
   totalDocs: number;
