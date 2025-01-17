@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mongodb_container:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb_container
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_DATABASE: ${MONGO_INITDB_ROOT_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb_data_container:/data/db
+
+  redis_container:
+    image: redis:latest
+    restart: always
+    container_name: redis_container
+    env_file:
+      - .env
+    ports:
+      - ${REDIS_PORT}:6379
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./redis_data:/data
+
+  backend_container:
+    image: backend_starter:latest
+    ports:
+      - 3030:3030
+    depends_on:
+      - mongodb_container
+      - redis_container
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_DATABASE: ${MONGO_INITDB_ROOT_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      MONGO_HOST: ${MONGO_HOST}
+      MONGO_PORT: ${MONGO_PORT}
+    volumes:
+      - ./mongodb_data_container:/data/db
+      - ./redis_data:/data
+
+volumes:
+  mongodb_data_container:
+  redis_data:

@@ -1,6 +1,3 @@
-import DataLoader from 'dataloader';
-// import { Request } from 'express';
-
 export interface JWTPayload {
   id: string;
   email: string;

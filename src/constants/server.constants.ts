@@ -5,7 +5,7 @@ config();
 const PORT = process.env.PORT || 3030;
 const HOST = process.env.HOST || 'localhost';
 const PROTOCOL = HOST === 'localhost' ? 'http' : 'https';
-const DB_URL = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
+const DB_URL = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
 const allowedOrigins = ['http://localhost:3000'];
 
 const SERVER_URL = `${PROTOCOL}://${HOST}${HOST === 'localhost' ? `:${PORT}` : ``}`;

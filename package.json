@@ -1,19 +1,19 @@
 {
-  "name": "backend_stater_v1",
+  "name": "@dev_ashirvad/backend-starter-v1",
   "version": "1.0.0",
   "description": "",
+  "bin": "./bin/cli.js",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc",
+    "build": "rm -rf ./dist && tsc && tsc-alias",
     "prepare": "husky",
     "clean:install": "rm -rf ./node_modules && rm -r package-lock.json && npm i",
-    "clean:find-unused": "knip --unused",
+    "clean:find-unused": "knip",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --write ."
   },
   "knip": {
     "entry": [
@@ -23,6 +23,10 @@
       "**/*.ts"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dEvAshirvad/backend_stater_v1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -30,6 +34,7 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.18.0",
+    "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
@@ -38,20 +43,24 @@
     "cross-env": "^7.0.3",
     "eslint": "^9.18.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.0",
+    "knip": "^5.42.1",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },
   "dependencies": {
+    "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
     "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
     "log4js": "^6.9.1",
@@ -63,12 +72,5 @@
     "yarn": "please-use-pnpm",
     "npm": "please-use-pnpm",
     "pnpm": ">=9.0.0"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "pnpm format",
-      "pnpm lint",
-      "git add"
-    ]
   }
 }
