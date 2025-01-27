@@ -1,5 +1,4 @@
 import { config } from 'dotenv';
-
 config();
 
 const PORT = process.env.PORT || 3030;
@@ -14,6 +13,10 @@ const COOKIE_DOMAIN = HOST === 'localhost' ? 'localhost' : `.${HOST}`;
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION || '1h';
 
+const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
+const REDIS_PORT = Number(process.env.REDIS_PORT) || 6379;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD || 'root';
+
 export {
   PORT,
   HOST,
@@ -24,4 +27,7 @@ export {
   allowedOrigins,
   JWT_SECRET,
   JWT_EXPIRATION,
+  REDIS_HOST,
+  REDIS_PORT,
+  REDIS_PASSWORD,
 };

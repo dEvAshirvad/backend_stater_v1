@@ -1,8 +1,7 @@
 dist
+.env
 mongodb_data_container
 node_modules
 redis_data
-logs
-.env
 pnpm-lock.yaml
-.DS_Store
+logs

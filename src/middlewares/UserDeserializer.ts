@@ -1,6 +1,7 @@
-import { VerifyJWT } from '@/lib/tokens';
+import { SignJwt, VerifyJWT } from '@/lib/tokens';
 import { NextFunction, Request, Response } from 'express';
 import { JWTPayload } from '@/types/globals';
+import { cookieConfig } from '@/configs/cookieConfig';
 
 async function UserDeserializer(
   req: Request,
@@ -17,6 +18,12 @@ async function UserDeserializer(
     const payload = VerifyJWT(access_token) as JWTPayload;
 
     req.user = payload;
+    const newToken = SignJwt(payload);
+    res.cookie(
+      'access_token',
+      newToken,
+      cookieConfig({ maxAge: 1000 * 60 * 60 })
+    ); // 1 hour
 
     return next();
   } catch (error) {

@@ -1,12 +1,15 @@
 import Redis from 'ioredis';
 import { errorlogger } from './logger';
-import { config } from 'dotenv';
-config();
+import {
+  REDIS_HOST,
+  REDIS_PORT,
+  REDIS_PASSWORD,
+} from '@/constants/server.constants';
 
 const redis = new Redis({
-  host: process.env.REDIS_HOST || 'localhost', // Redis server host
-  port: Number(process.env.REDIS_PORT) || 6379, // Redis server port
-  password: process.env.REDIS_PASSWORD || 'root', // Redis server password (if any)
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  password: REDIS_PASSWORD,
 });
 
 redis.on('error', (error) => {

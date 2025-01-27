@@ -1,10 +1,13 @@
 import jwt, { JsonWebTokenError, JwtPayload } from 'jsonwebtoken';
-import { JWT_SECRET } from '@/constants/server.constants';
+import { JWT_EXPIRATION, JWT_SECRET } from '@/constants/server.constants';
 import { MIDDLEWARE_ERRORS } from '@/errors/MIDDLEWARE_ERRORS';
 import APIError from '@/errors/APIError';
 
 export function SignJwt(payload: JwtPayload, options?: jwt.SignOptions) {
-  return jwt.sign(payload, JWT_SECRET, options);
+  return jwt.sign(payload, JWT_SECRET, {
+    ...options,
+    expiresIn: JWT_EXPIRATION,
+  });
 }
 
 export function VerifyJWT(token: string) {
@@ -20,5 +23,7 @@ export function VerifyJWT(token: string) {
         throw new APIError(MIDDLEWARE_ERRORS.SESSION_INVALIDATED);
       }
     }
+
+    throw error;
   }
 }
